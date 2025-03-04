@@ -1,18 +1,18 @@
 from typing import List
 
 def tic_tac_toe_checker(board: List[List[str]]) -> str:
-    # Function to check for a winner
+    # Для проверки победителя
     def check_winner(player: str) -> bool:
-        # Check rows, columns, and diagonals for a win
+        # Проверка строк, столбцов и диагоналей на победу
         for i in range(3):
-            if all(cell == player for cell in board[i]):  # Check rows
+            if all(cell == player for cell in board[i]):  
                 return True
-            if all(board[j][i] == player for j in range(3)):  # Check columns
+            if all(board[j][i] == player for j in range(3)):  
                 return True
-        # Check diagonals
-        if all(board[i][i] == player for i in range(3)):  # Check main diagonal
+        
+        if all(board[i][i] == player for i in range(3)):  
             return True
-        if all(board[i][2 - i] == player for i in range(3)):  # Check anti-diagonal
+        if all(board[i][2 - i] == player for i in range(3)): 
             return True
         return False
     
@@ -24,13 +24,12 @@ def tic_tac_toe_checker(board: List[List[str]]) -> str:
     if o_wins:
         return "o wins!"
     
-    # Check for unfinished game and draw scenario
+    # Проверка на незаконченную игру и ничью
     if any(cell == '-' for row in board for cell in row):
         return "unfinished!"
     else:
         return "draw!"
 
-# Example usage
 if __name__ == "__main__":
     board1 = [['-', '-', 'o'],
                ['-', 'x', 'o'],
