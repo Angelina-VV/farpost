@@ -77,7 +77,6 @@ class TableData(Collection):
             print(f"Ошибка при итерации по таблице: {e}")
             return  # Или raise, в зависимости от желаемого поведения
 
-# Пример использования (предполагает, что у вас есть файл example.sqlite с таблицей presidents):
 if __name__ == '__main__':
     presidents = TableData('d:\example.sqlite', 'presidents')
 
