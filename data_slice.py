@@ -1,0 +1,43 @@
+import mysql.connector
+import time
+from datetime import datetime
+import os
+
+# Настройки подключения к базе данных
+config = {
+    "user": "root",
+    "password": "root",
+    "host": "localhost",
+    "database": "mydatabase",
+}
+
+save_directory = "data_slice" 
+
+def fetch_data():
+    # Подключение к базе данных
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+
+    # Выполнение запроса
+    cursor.execute("SELECT * FROM messages")  # Запрос к таблице messages
+    data = cursor.fetchall()
+
+    # Закрытие соединения
+    cursor.close()
+    conn.close()
+
+    return data
+
+def save_to_file(data):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"data_slice_{timestamp}.txt"
+    file_path = os.path.join(save_directory, filename)
+    with open(file_path , 'w') as f:
+        for row in data:
+            f.write(','.join(map(str, row)) + '\n')
+
+if __name__ == "__main__":
+    while True:
+        data = fetch_data()
+        save_to_file(data)
+        time.sleep(300)  # 5 минут
